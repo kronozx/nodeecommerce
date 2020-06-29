@@ -10,7 +10,7 @@ to the database (used mongoDB Atlas and Cloudinary).
 ##Additional features on v7
 - Add Git and manage future updates with Git instead of creating new versions.
 - Refactor of reset password functionality (with sendgrid) by using async.waterfall
-- Tried to deploy to Heroku but it asks for Credit Card to integrate sendgrid. So please test sendgrid funtions locally.
+- Tried to deploy to Heroku but it asks for Credit Card to integrate sendgrid. So please test sendgrid functions locally with your Sendgrid key.
 
 
 ##Further Functionality
