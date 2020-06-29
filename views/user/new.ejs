@@ -1,0 +1,44 @@
+<%- include('../partials/header') -%>
+
+<div class="container">
+    <div class="row d-flex justify-content-center">
+        <div class="col-sm-8">
+            <h1>Agregue una nueva Ancheta</h1>
+            <form action="/user/dashboard" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                  <label for="product">Producto</label>
+                  <input class="form-control" id="product" type="text" name="product" placeholder="producto" autofocus/>
+                </div>
+                <div class="form-group">
+                    <label for="price">Precio</label>
+                    <input class="form-control" id="price" type="text" name="price" placeholder="precio"autofocus/>
+                </div>
+                <div class="form-group">
+                    <label for="description">Descripción</label>
+                    <input class="form-control" id="description" type="text" name="description" placeholder="descripción" autofocus/>
+                </div>
+
+                <div class="form-group">
+                    <label for="category">Categoría</label>
+                    <select id="category" name="category" required>
+                        <option value="ancheta">Ancheta</option>
+                        <option value="peluche">Peluche</option>
+                        <option value="accesorios">Accesorios</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="image">Image</label>
+                    <input type="file" id="image" name="image" accept="image/*" required autofocus/>
+                </div>
+                <div class="form-group">
+                    <label for="reference">Referencia</label>
+                    <input class="form-control" id="reference" type="text" name="reference" placeholder="reference" autofocus/>
+                </div>
+                <button type="submit" class="btn btn-primary">Agregar Producto</button>
+              </form>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer') -%>

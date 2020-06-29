@@ -1,0 +1,24 @@
+<%- include('../partials/header') -%>
+
+<div class="container">
+    <div class="row d-flex justify-content-center">
+        <div class="col-sm-8">
+            <h1>Login</h1>
+            <form action="/user/login" method="POST">
+                <div class="form-group">
+                  <label for="adminname">Usuario</label>
+                  <input type="text" class="form-control" id="username" name="username" placeholder="username" autofocus aria-describedby="Admin Name" autofocus/>
+                  <!--<small id="" class="form-text text-muted">We'll never share your email with anyone else.</small>-->
+                </div>
+                <div class="form-group">
+                  <label for="adminpassword">Password</label>
+                  <input type="password" class="form-control" id="userpassword" name="password" placeholder="password" autofocus/>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+              </form>
+        </div>
+    </div>
+</div>
+
+
+<%- include('../partials/footer') -%>

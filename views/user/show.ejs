@@ -1,0 +1,15 @@
+<%- include('../partials/header') -%>
+
+<h1>This is the Show page</h1>
+
+        <h5><%= product.product %></h5></a>
+        <p><%= product.price %></p>
+        <p><%= product.item %></p>
+        <img src="<%= product.image %>" alt="">
+        <a href="/user/dashboard/<%=product._id%>/edit">Edit</a>
+        <form action="/user/dashboard/<%=product._id%>?_method=DELETE" method="POST">
+            <button>Delete</button>
+        </form>
+    
+
+<%- include('../partials/footer') -%>

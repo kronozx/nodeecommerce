@@ -1,0 +1,123 @@
+<%- include('partials/header') -%>
+
+<div class="container">
+
+    <div class="text-center my-3" id="">
+            <h5>Selecciona un rango de precios y luego haz click en el botón Buscar</h5>
+            <form action="/gifts" method="POST">
+              <input type="radio" id="all" name="option" value="all" 
+                <% if(priceOption === 'all') { %>
+                  <%= checked = "checked" %>
+                <% } %> >
+              <label for="all">Todos los precios</label><br>
+              <input type="radio" id="1020" name="option" value="1020"
+              <% if(priceOption === '1020') { %>
+                <%= checked = "checked" %>
+              <% } %> >
+              <label for="1020">Entre $10.000 y $20.000</label><br>
+              <input type="radio" id="2030" name="option" value="2030"
+              <% if(priceOption === '2030') { %>
+                <%= checked = "checked" %>
+              <% } %> >
+              <label for="2030">Entre $20.000 y $30.000</label><br>
+              <input type="radio" id="3040" name="option" value="3040"
+              <% if(priceOption === '3040') { %>
+                <%= checked = "checked" %>
+              <% } %> >
+              <label for="3040">Entre $30.000 y $40.000</label><br>
+              <input type="radio" id="40" name="option" value="40"
+              <% if(priceOption === '40') { %>
+                <%= checked = "checked" %>
+              <% } %> >
+              <label for="40">Más de $40.000</label>
+              <br>
+              <input class="btn btn-primary" type="submit" value="Buscar">   
+
+            </form> 
+    </div>
+
+    <div class="row justify-content-center">
+      <% if(priceOption === 'all') {%>
+            <% products.forEach(function(product) {%>
+                <div class="card mx-1 mb-1" style="width: 18rem;">
+                    <img src="<%= product.image %>" class="card-img-top" crossorigin="anonymous" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title"><%= product.product %></h5>
+                      <p class="card-text"><%= product.price %></p>
+                      <p class="card-text"><%= product.description %></p>
+                      <a href="/gifts/<%=product._id%>" class="btn btn-primary">Ver más</a>
+                    </div>
+                  </div>
+            <% }); %>   
+      <% } %>     
+
+      <% if(priceOption === '1020') {%>
+        <% products.forEach(function(product) {%>
+          <% if ( parseInt(product.price) >= 10000 && parseInt(product.price) <= 20000 ) { %>
+            <div class="card mx-1 mb-1" style="width: 18rem;">
+                <img src="<%= product.image %>" class="card-img-top" crossorigin="anonymous" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title"><%= product.product %></h5>
+                  <p class="card-text"><%= product.price %></p>
+                  <p class="card-text"><%= product.description %></p>
+                  <a href="/gifts/<%=product._id%>" class="btn btn-primary">Ver más</a>
+                </div>
+              </div>
+          <% } %>
+        <% }); %>   
+      <% } %>       
+      
+      <% if(priceOption === '2030') {%>
+        <% products.forEach(function(product) {%>
+          <% if ( parseInt(product.price) >= 20000 && parseInt(product.price) <= 30000 ) { %>
+            <div class="card mx-1 mb-1" style="width: 18rem;">
+                <img src="<%= product.image %>" class="card-img-top" crossorigin="anonymous" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title"><%= product.product %></h5>
+                  <p class="card-text"><%= product.price %></p>
+                  <p class="card-text"><%= product.description %></p>
+                  <a href="/gifts/<%=product._id%>" class="btn btn-primary">Ver más</a>
+                </div>
+              </div>
+          <% } %>
+        <% }); %>   
+      <% } %>       
+
+      <% if(priceOption === '3040') {%>
+        <% products.forEach(function(product) {%>
+          <% if ( parseInt(product.price) >= 30000 && parseInt(product.price) <= 40000 ) { %>
+            <div class="card mx-1 mb-1" style="width: 18rem;">
+                <img src="<%= product.image %>" class="card-img-top" crossorigin="anonymous" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title"><%= product.product %></h5>
+                  <p class="card-text"><%= product.price %></p>
+                  <p class="card-text"><%= product.description %></p>
+                  <a href="/gifts/<%=product._id%>" class="btn btn-primary">Ver más</a>
+                </div>
+              </div>
+          <% } %>
+        <% }); %>   
+      <% } %> 
+
+      <% if(priceOption === '40') {%>
+        <% products.forEach(function(product) {%>
+          <% if ( parseInt(product.price) >= 40000 ) { %>
+            <div class="card mx-1 mb-1" style="width: 18rem;">
+                <img src="<%= product.image %>" class="card-img-top" crossorigin="anonymous" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title"><%= product.product %></h5>
+                  <p class="card-text"><%= product.price %></p>
+                  <p class="card-text"><%= product.description %></p>
+                  <a href="/gifts/<%=product._id%>" class="btn btn-primary">Ver más</a>
+                </div>
+              </div>
+          <% } %>
+        <% }); %>   
+      <% } %> 
+
+    </div>
+</div>
+
+
+
+<%- include('partials/footer') -%>

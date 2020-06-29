@@ -1,0 +1,28 @@
+<%- include('../partials/header') -%>
+
+
+<section class="">
+    <div class="container">
+        <h1>Administra tu Página desde aquí</h1>
+        <p>Welcome <%= username %></p>
+        <a class="btn btn-success mb-4" href="/user/dashboard/new" role="button">Agregar Producto</a>
+        <div class="row">
+            <% products.forEach(function(product) {%>
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="card mb-2">
+                    <img src="<%= product.image %>" class="card-img-top" alt="">
+                    <div class="card-body">
+                        <h5 class="card-title"><%= product.product %></h5>
+                        <p class="card-text">Precio = <%= product.price %></p>
+                        <p class="card-text">Descripción = <%= product.description %></p>
+                        <a href="/user/dashboard/<%=product._id%>/edit" class="btn btn-primary">Editar</a>
+                    </div>
+                </div>
+            </div>
+            <% }); %>
+
+        </div>
+    </div>
+</section>
+
+<%- include('../partials/footer') -%>

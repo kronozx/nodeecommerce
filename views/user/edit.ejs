@@ -1,0 +1,100 @@
+<%- include('../partials/header') -%>
+
+    <!--<form action="/admin/dashboard/<%=product._id%>?_method=PUT" method="POST">
+        <label for="product">Producto</label>
+        <input type="text" id="product" name="product[product]" value=<%= product.product %>  />
+        <label for="precio">Precio</label>
+        <input type="text" id="precio" name="product[price]" value=<%= product.price %> />
+        <label for="clase">Clase de Producto</label>
+        <input type="text" id="clase" name="product[item]" value=<%= product.item %> />
+        <input type="text" name="product[image]" value=<%= product.image %> />
+        <button class="btn btn-primary">Editar</button>
+    </form>-->
+
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="col-sm-8">
+                <h4>Por favor EDITE un Producto</h4>
+                <form action="/user/dashboard/<%=product._id%>?_method=PUT" method="POST">
+                    <div class="form-group">
+                        <label for="product">Producto</label>
+                        <input type="text" id="product" name="product[product]" value="<%= product.product %>" autofocus />
+                    </div>
+                    <div class="form-group">
+                        <label for="precio">Precio</label>
+                        <input type="text" id="precio" name="product[price]" value="<%= product.price %>" autofocus/>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Descripción</label>
+                        <input type="text" id="description" name="product[description]" value="<%= product.description %>" autofocus/>   
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Categoría</label>
+                        <select id="category" name="product[category]" required>
+                            <option value="ancheta" 
+                            <% if(product.category === 'ancheta') { %>
+                                selected
+                            <% } %> >Ancheta</option>
+                            <option value="peluche"
+                            <% if(product.category === 'peluche') { %>
+                                selected
+                            <% } %> >Peluche</option>
+                            <option value="accesorios" 
+                            <% if(product.category === 'accesorios') { %>
+                                selected
+                            <% } %> >Accesorios</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="image">Imagen</label>
+                        <input type="text" id="image" name="product[image]" value="<%= product.image %>" autofocus/>
+                    </div>
+                    <div class="form-group">
+                        <label for="reference">Referencia</label>
+                        <input class="form-control" id="reference" type="text" name="product[reference]" value="<%= product.reference %>" autofocus/>
+                    </div>
+                    
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmWindow">Editar</button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="confirmWindow" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            
+                            <div class="modal-body">
+                                <h6>Por favor confirma que deseas editar este ítem</h6>
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Aceptar</button>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+
+                </form>
+                <form action="/user/dashboard/<%=product._id%>?_method=DELETE" method="POST">
+                    <button type="button" class="btn btn-danger mt-2" data-toggle="modal" data-target="#confirmEraseWindow">
+                        Borrar
+                    </button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="confirmEraseWindow" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            
+                            <div class="modal-body">
+                                <h6>Estás seguro de querer eliminar este ítem?</h6>
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Sí, eliminar ítem</button>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+<%- include('../partials/footer') -%>

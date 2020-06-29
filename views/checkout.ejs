@@ -1,0 +1,35 @@
+<%- include('partials/header') -%>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-9" m-2>
+            <div class="container mt-5">
+                <h3>Por favor Elige el medio de pago</h3>
+                <div class="form-group">
+                    <form action="/cart/purchase/end" method="POST">
+                        <input class="mx-2" type="radio" id="transfer" name="option" value="transfer" required>
+                        <label for="transfer">Transferencia Bancaria</label>
+                        <br>
+                        <input class="mx-2" type="radio" id="cash" name="option" value="cash" required>
+                        <label for="cash">En efectivo</label>
+                        <br>  
+                        <input hidden value="<%= total %>" name="cartTotal"/>
+                        <button id="payConfirm" class="btn btn-success m-2">Confirmar Medio de Pago</button> 
+                    </form> 
+                                                                                                         
+                </div>
+            <div class="alert alert-warning font-weight-bolder text-center" role="alert">
+                Recuerda que por el momento únicamente operamos en Ebéjico y su zona rural. 
+            </div>                 
+            </div>
+        </div>
+        
+    </div>
+
+</div>
+
+<script>
+    let payButton = document.getElementById
+</script>
+
+<%- include('partials/footer') -%>

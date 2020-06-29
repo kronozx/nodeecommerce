@@ -1,0 +1,39 @@
+<%- include('partials/header') -%>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-9" m-2>
+            <div class="container mt-5">
+                <h2 class="text-success">Gracias por tu compra</h2>
+                <h4 class="">Tu orden ha sido recibida</h4>
+                <p>Para completar los detalles de tu proceso de compra, sigue los siguientes pasos:</p>
+                <% if(payMethod === 'transfer') {%>
+                    <ul class="list-group">
+                        <p>1. Realiza una transferencia por $<%= total %> a la cuenta de Bancolombia nro.</p>
+                        <p>2. Ponte en contacto con el nro. 3053069114 (WhatsApp), enviando imagen de la transferencia, 
+                            para finalizar los detalles del pedido (dirección y persona para enviar el regalo, personalización de mensajes, etc.).
+                        </p>
+                    </ul>    
+                <% } %>
+                <% if(payMethod === 'cash') {%>
+                    <ul class="list-group">
+                        <p>Ponte en contacto con el nro. 3053069114 (WhatsApp), para finalizar los detalles del pedido 
+                            (hora y persona que recoge el regalo, personalización de mensajes, etc.).
+                        </p>
+                    </ul>    
+                <% } %>
+                
+                <div class="alert alert-warning font-weight-bolder text-center" role="alert">
+                    Recuerda que por el momento únicamente operamos en Ebéjico y su zona rural. 
+                </div>
+                <form action="/cart/purchase/redirect" method="POST">
+                    <button class="btn btn-primary m-2">Ir al Inicio</button>
+                </form>          
+            </div>
+        </div>
+        
+    </div>
+
+</div>
+
+<%- include('partials/footer') -%>
