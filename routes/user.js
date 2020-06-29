@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const asyncjs = require('async');
 const passport = require('passport');
 
 // User and Products model
@@ -150,7 +151,6 @@ router.get("/register", isNotLoggedIn, function(req, res){
  //User Register Handling
  router.post("/register", isNotLoggedIn, async function(req, res){
     const emailExists = await User.findOne({ email: req.body.email });
-    console.log(emailExists);
     if(emailExists) {
         console.log("email already in use");
         req.flash("error", "The email provided is already in use.")
