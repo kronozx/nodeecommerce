@@ -10,7 +10,7 @@ const LocalStrategy         = require("passport-local");
 
 
 //ENV Variables
-//require('dotenv').config();
+require('dotenv').config();
         
 mongoose.connect(process.env.DB, {
     useUnifiedTopology: true,
