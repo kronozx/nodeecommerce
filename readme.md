@@ -9,7 +9,7 @@ to the database (used mongoDB Atlas and Cloudinary).
 
 ##Additional features on v7
 - Add Git and manage future updates with Git instead of creating new versions.
-- 
+- Refactor of sendgrid functionality (verify signup email and reset password) by using async.waterfall
 
 
 ##Further Functionality
