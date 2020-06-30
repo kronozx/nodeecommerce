@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const asyncjs = require('async');
 const passport = require('passport');
+const middleware = require('../middleware');
 
 // User and Products model
 const User = require('../models/user');
@@ -42,7 +42,7 @@ cloudinary.config({
 //------------------------------------------------
 
 //Admin Dashboard
-router.get("/dashboard", isLoggedInAdmin, function(req, res){
+router.get("/dashboard", middleware.isLoggedInAdmin, function(req, res){
     Gift.find({}, (err, products) => {
         if (err) {
             console.log(err);
@@ -54,12 +54,12 @@ router.get("/dashboard", isLoggedInAdmin, function(req, res){
 
 
  //New Product Route
-router.get("/dashboard/new", isLoggedInAdmin, (req, res) => {
+router.get("/dashboard/new", middleware.isLoggedInAdmin, (req, res) => {
     res.render("user/new");
 });
 
 //Create Product Route
-router.post('/dashboard', isLoggedInAdmin, upload.single('image'), (req, res) => {
+router.post('/dashboard', middleware.isLoggedInAdmin, upload.single('image'), (req, res) => {
     // Cloudinary code
     cloudinary.v2.uploader.upload(req.file.path, function(err, result) {
         // add cloudinary url for the image to the Gift object under image property
@@ -83,7 +83,7 @@ router.post('/dashboard', isLoggedInAdmin, upload.single('image'), (req, res) =>
 });
 
 //Show Product Route
-router.get("/dashboard/:id", isLoggedInAdmin, (req, res) => {
+router.get("/dashboard/:id", middleware.isLoggedInAdmin, (req, res) => {
     Gift.findById(req.params.id, (err, foundProduct) => {
         if (err) {
             res.redirect("products");
@@ -94,7 +94,7 @@ router.get("/dashboard/:id", isLoggedInAdmin, (req, res) => {
 });
 
 //Edit Product Route
-router.get('/dashboard/:id/edit', isLoggedInAdmin, (req, res) => {
+router.get('/dashboard/:id/edit', middleware.isLoggedInAdmin, (req, res) => {
     Gift.findById(req.params.id, (err, product) => {
         if (err) {
             res.redirect('/dashboard');
@@ -105,7 +105,7 @@ router.get('/dashboard/:id/edit', isLoggedInAdmin, (req, res) => {
 });
 
 // Update Product Route
-router.put('/dashboard/:id', isLoggedInAdmin, (req, res) => {
+router.put('/dashboard/:id', middleware.isLoggedInAdmin, (req, res) => {
     //console.log(req.params.id);
     //console.log(req.body.product);
     Gift.findByIdAndUpdate(req.params.id, req.body.product, (err, updatedtProduct) => {
@@ -118,7 +118,7 @@ router.put('/dashboard/:id', isLoggedInAdmin, (req, res) => {
 });
 
 //Delete Product Route
-router.delete('/dashboard/:id', isLoggedInAdmin, (req, res) => {
+router.delete('/dashboard/:id', middleware.isLoggedInAdmin, (req, res) => {
     /*let cloudinaryUrl;
     Post.findById(req.params.id, (err, foundProduct) => {
         if (err) {
@@ -144,12 +144,12 @@ router.delete('/dashboard/:id', isLoggedInAdmin, (req, res) => {
  //AUTH ROUTES
 
 //User Register
-router.get("/register", isNotLoggedIn, function(req, res){
+router.get("/register", middleware.isNotLoggedIn, function(req, res){
     res.render("user/register"); 
  });
 
  //User Register Handling
- router.post("/register", isNotLoggedIn, async function(req, res){
+ router.post("/register", middleware.isNotLoggedIn, async function(req, res){
     const emailExists = await User.findOne({ email: req.body.email });
     if(emailExists) {
         console.log("email already in use");
@@ -334,12 +334,12 @@ router.post("/reset/:token", function(req, res) {
 });
  
  //Admin Login
- router.get("/login", isNotLoggedIn, function(req, res){
+ router.get("/login", middleware.isNotLoggedIn, function(req, res){
     res.render("user/login"); 
  });
 
  //Admin login handling
- router.post("/login", isNotLoggedIn, isNotVerified, passport.authenticate("local", {
+ router.post("/login", middleware.isNotLoggedIn, middleware.isNotVerified, passport.authenticate("local", {
      successRedirect: "/user/dashboard",
      failureRedirect: "/user/login",
      failureFlash: true,
@@ -348,54 +348,11 @@ router.post("/reset/:token", function(req, res) {
  });
 
 //Admin Logout
- router.get("/logout", isLoggedIn, function(req, res){
+ router.get("/logout", middleware.isLoggedIn, function(req, res){
      req.session.cartItems = null;
      req.logout();
      req.flash("error", "Has Terminado la Sesión");
      res.redirect("/");
  });
- 
-//Middlewares
-function isLoggedInAdmin(req, res, next){
-    if(req.isAuthenticated() && req.user.isAdmin){
-        //req.flash("success", "You´re now logged in as an Admin");
-        return next();
-    } else {
-        //req.flash("error", "Por favor haz Login");
-        res.redirect("/");
-    }
-}
-
-function isLoggedIn(req, res, next){
-    if(req.isAuthenticated()) {
-        //req.flash("success", "You´re now logged in as an Admin");
-        return next();
-    } else {
-        //req.flash("error", "Por favor haz Login");
-        res.redirect("/");
-    }
-}
-
-function isNotLoggedIn(req, res, next) {
-    if (req.isAuthenticated()) {
-        return res.redirect('/');
-    }
-    next();
-}
-
-async function isNotVerified(req, res, next) {
-    try {
-        const user = await User.findOne({ username: req.body.username });
-        if (user.isVerified) {
-            return next();
-        }
-        req.flash("error", "You need to verify your account before logging in. Please check your email");
-        res.redirect("/");
-    } catch(error) {
-        console.log(error);
-        req.flash("error", "Please register first");
-        res.redirect('/user/register');
-    }    
-} 
 
 module.exports = router;
