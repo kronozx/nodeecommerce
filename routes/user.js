@@ -119,26 +119,25 @@ router.put('/dashboard/:id', middleware.isLoggedInAdmin, (req, res) => {
 
 //Delete Product Route
 router.delete('/dashboard/:id', middleware.isLoggedInAdmin, (req, res) => {
-    /*let cloudinaryUrl;
-    Post.findById(req.params.id, (err, foundProduct) => {
+    Gift.findById(req.params.id, (err, product) => {
         if (err) {
-            res.redirect("products");
+            res.redirect('/dashboard');
         } else {
-            console.log(foundProduct);
-        }
-    });*/
-    Gift.findByIdAndRemove(req.params.id, (err) => {
-        if (err) {
+            console.log(product.image);
             res.redirect("/user/dashboard");
-        } else {
-            // Remember to erase images from cloudinary as well - Probably use async JS or save
-            // req.body.prduct.img on a var before
-            /*cloudinary.v2.uploader.destroy('https://res.cloudinary.com/kronozdev/image/upload/v1589981563/rdtjfyacrtkskvb5tqwc.png', function (result) {
+        }
+    });
+    /*cloudinary.v2.uploader.destroy('', function (result) {
                 console.log(result);
             });*/
+    /*Gift.findByIdAndRemove(req.params.id, (err) => {
+        if (err) {
+            res.redirect("/user/dashboard");
+        } else {
             res.redirect("/user/dashboard");
         }
-    }); 
+    });*/ 
+
 });
 
  //AUTH ROUTES
