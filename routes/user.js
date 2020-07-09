@@ -122,20 +122,14 @@ router.put('/dashboard/:id', middleware.isLoggedInAdmin, (req, res) => {
 
 //Delete Product Route
 router.delete('/dashboard/:id', middleware.isLoggedInAdmin, (req, res) => {
-    Gift.findById(req.params.id, (err, product) => {
+    Gift.findByIdAndRemove(req.params.id, (err, product) => {
         if (err) {
             res.redirect('/dashboard');
         } else {
+            console.log(product.cloudinaryId);
             cloudinary.v2.uploader.destroy(product.cloudinaryId, function(error,result) {
-                Gift.findByIdAndRemove(req.params.id, (err) => {
-                    if (err) {
-                        res.redirect("/user/dashboard");
-                    } else {
-                        console.log("item successfully removed");
-                        res.redirect("/user/dashboard");
-                    }
-                });
                 console.log(result, error);
+                res.redirect("/user/dashboard");
             });
         }
     });
