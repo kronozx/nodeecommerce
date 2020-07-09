@@ -64,6 +64,7 @@ router.post('/dashboard', middleware.isLoggedInAdmin, upload.single('image'), (r
     cloudinary.v2.uploader.upload(req.file.path, function(err, result) {
         // add cloudinary url for the image to the Gift object under image property
         req.body.image = result.secure_url;
+        console.log(result.public_id);
         Gift.create({
             product: req.body.product,
             price: req.body.price,
@@ -119,15 +120,19 @@ router.put('/dashboard/:id', middleware.isLoggedInAdmin, (req, res) => {
 
 //Delete Product Route
 router.delete('/dashboard/:id', middleware.isLoggedInAdmin, (req, res) => {
-    Gift.findById(req.params.id, (err, product) => {
-        if (err) {
-            res.redirect('/dashboard');
-        } else {
-            console.log(product.image);
-            res.redirect("/user/dashboard");
-        }
+    cloudinary.v2.uploader.destroy('pmblopfxfmz6a2xphtm0', function(error,result) {
+        console.log(result, error);
+        Gift.findById(req.params.id, (err, product) => {
+            if (err) {
+                res.redirect('/dashboard');
+            } else {
+                console.log(product.image);
+                res.redirect("/user/dashboard");
+            }
+        });
     });
-    /*cloudinary.v2.uploader.destroy('', function (result) {
+    
+    /*cloudinary.v2.uploader.destroy('public_id', function (result) {
                 console.log(result);
             });*/
     /*Gift.findByIdAndRemove(req.params.id, (err) => {
