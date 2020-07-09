@@ -17,6 +17,10 @@ const GiftSchema = new mongoose.Schema({
         type: String,
         require: true
     },
+    cloudinaryId: {
+        type: String,
+        required: true
+    },
     category: {
         type: String,
         require: true

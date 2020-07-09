@@ -64,13 +64,15 @@ router.post('/dashboard', middleware.isLoggedInAdmin, upload.single('image'), (r
     cloudinary.v2.uploader.upload(req.file.path, function(err, result) {
         // add cloudinary url for the image to the Gift object under image property
         req.body.image = result.secure_url;
-        console.log(result.public_id);
+        //We use cloudinaryId to erase the product on the delete route
+        const cloudinaryId = result.public_id;
         Gift.create({
             product: req.body.product,
             price: req.body.price,
             description: req.body.description,
             category: req.body.category,
             image: req.body.image,
+            cloudinaryId: cloudinaryId,
             reference: req.body.reference
         }, (err, item) => {
             if (err) {
@@ -120,29 +122,24 @@ router.put('/dashboard/:id', middleware.isLoggedInAdmin, (req, res) => {
 
 //Delete Product Route
 router.delete('/dashboard/:id', middleware.isLoggedInAdmin, (req, res) => {
-    cloudinary.v2.uploader.destroy('pmblopfxfmz6a2xphtm0', function(error,result) {
-        console.log(result, error);
-        Gift.findById(req.params.id, (err, product) => {
-            if (err) {
-                res.redirect('/dashboard');
-            } else {
-                console.log(product.image);
-                res.redirect("/user/dashboard");
-            }
-        });
-    });
-    
-    /*cloudinary.v2.uploader.destroy('public_id', function (result) {
-                console.log(result);
-            });*/
-    /*Gift.findByIdAndRemove(req.params.id, (err) => {
+    Gift.findById(req.params.id, (err, product) => {
         if (err) {
-            res.redirect("/user/dashboard");
+            res.redirect('/dashboard');
         } else {
-            res.redirect("/user/dashboard");
+            cloudinary.v2.uploader.destroy(product.cloudinaryId, function(error,result) {
+                Gift.findByIdAndRemove(req.params.id, (err) => {
+                    if (err) {
+                        res.redirect("/user/dashboard");
+                    } else {
+                        console.log("item successfully removed");
+                        res.redirect("/user/dashboard");
+                    }
+                });
+                console.log(result, error);
+            });
         }
-    });*/ 
-
+    });
+        
 });
 
  //AUTH ROUTES
