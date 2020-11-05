@@ -9,7 +9,7 @@ to the database (used mongoDB Atlas and Cloudinary).
 
 ##Additional features on v7
 - Add Git and manage future updates with Git instead of creating new versions.
-- Tried to deploy to Heroku but it asks for Credit Card to integrate sendgrid functionality. So please test sendgrid functions locally with your Sendgrid key.
+- Tried to deploy to Heroku but it asks for Credit Card to integrate sendgrid functionality (email validation and password). So please test sendgrid functions locally with your Sendgrid key.
 - Removes Images from cloudinary when deleting a product (before this, it only deleted the item from mongoose but the image remained on cloudinary).
 
 
