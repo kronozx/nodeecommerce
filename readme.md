@@ -13,7 +13,6 @@ to the database (used mongoDB Atlas and Cloudinary). IF YOU WANT A LIVE FUNCTION
 
 ##Further Functionality
 Next steps would be:
-- Erase images from cloudinary when deleting items
 - Integrate the cart with online payment suites.
 - Keep in mind when to sanitize (preven script injection) when adding a product.
 - CUSTOMIZED GIFTS COMPONENT. YOU CREATE THE GIFT, SEE A DEMO OF THIS FUNCTIONALITY AT https://agile-waters-95652.herokuapp.com/cart  
